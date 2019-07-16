@@ -1,0 +1,51 @@
+body {
+    background-color: #ecf0f1 !important;
+}
+
+#img-header {
+    height: 80px;
+}
+
+.btn-primary {
+    background-color: #7f8fa6 !important
+}
+
+.btn-danger {
+    background-color: #e84118 !important
+}
+
+.navbar {
+    background-color: #262147 !important;
+    padding: 0 15 15 0px;
+}
+
+button {
+    margin: 1 0 0 0px !important;
+    padding: 0 0;
+    
+}
+
+.nav-link {
+    color: white !important
+}
+
+#content {
+    margin: 0 15px;
+    height: 100%;
+}
+
+.beforeLogin {
+    display: flex;
+    align-items: center;
+}
+
+/* Footer */
+footer {
+    display: flex;
+    align-items: center;
+    position: fixed; 
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 50px;
+}
