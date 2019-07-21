@@ -54,7 +54,7 @@ class UserController {
         .then((ticket)=>{
             const {email, name} = ticket.getPayload()
             
-            let password = name+'fancyTodo'
+            let password = name+'miniwordpress'
             let newUser = new User ({
                 name : name,
                 password : password,

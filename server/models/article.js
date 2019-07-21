@@ -9,6 +9,9 @@ let ArticleSchema = new Schema({
     content : {
         type: String
     },
+    fileUrl: {
+        type: String
+    },
     created_at : {
         type : Date
     },

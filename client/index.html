@@ -1,183 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Mini WordPress</title>
-    <!-- bootstrap -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <!-- CSS -->
-    <link rel="stylesheet" href="/style/style.css" type="text/css">
-    <!-- Font Awesome -->
-    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-    <!-- Google Sign In -->
-    <meta name="google-signin-client_id" content="38893530788-p9mbaml2k7bq02jifa52f6juei0i3st6.apps.googleusercontent.com">
-
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Mini WordPress</title>
 </head>
 <body>
-      
-    <div id="app">
-        <!-- Navbar -->
-        <nav class="navbar navbar-expand-sm navbar-light bg-light">
-            <a class="navbar-brand" href="#"><img id="img-header" alt="image header" src="/style/vfmmn0twb17nn2epblee.webp"></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-                
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li v-if="isLogin" class="nav-item">
-                    <a class="nav-link" href="#">Profile</a>
-                </li>
-                <li v-if="isLogin" class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Article
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">My Articles</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Create</a>
-                    <a class="dropdown-item" href="#">Create</a>
-                    </div>
-                </li>
-                </ul>
-                <form v-if="isLogin" class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search Article" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
-                <div class="form-inline my-2 my-lg-0">
-                    <button v-if="!isLogin" v-on:click="page = 'formSignIn'" class ="btn btn-primary navbar-btn navbar-right" style ="margin-left:10px">Sign In</button>
-                    <button v-if="!isLogin" v-on:click="page = 'formRegister'" class ="btn btn-danger navbar-btn navbar-right" style ="margin-left:10px">Register</button>
-                    <button v-if="isLogin" v-on:click="logoutButton" class ="btn btn-danger navbar-btn navbar-right" style ="margin-left:10px">Logout</button>
-                </div>
-            </div>
-        </nav>
-
-        <!-- form register -->
-        <form v-if="page === 'formRegister' && !isLogin" v-on:submit.prevent="registerNewUser" method="POST" id="form-register" class="form-group row col-sm-4 beforeLogin" style="padding: 20px">
-            <label for="i-reg-name">Name</label>
-            <input type="text" v-model="register.name" placeholder="username" id="i-reg-name" class="form-control">
-            <label for="i-reg-email">Email</label>
-            <input type="text" v-model="register.email" placeholder="email" id="i-reg-email" class="form-control">
-            <label for="i-reg-password">Password</label>
-            <input type="password" v-model="register.password" placeholder="password" id="i-reg-password" class="form-control"><br>
-            <button type="submit" class="btn btn-primary">Submit</button>
-            <label style="margin-left:50px">Or</label>
-            <div style="margin-top: 5px;">
-                <label>Register with google</label>
-                <div class="g-signin2" data-onsuccess="onSignIn"></div>                             
-            </div>
-        </form>
-
-         <!-- form sigin -->
-        <form v-if="page === 'formSignIn' && !isLogin" v-on:submit.prevent="normalSignin" method="POST" id="form-signin" class="form-group row col-sm-4 beforeLogin" style="padding: 20px">
-            <label for="i-sigin-email">Email</label>
-            <input type="text" v-model="login.email" placeholder="email" id="i-sigin-email" class="form-control">
-            <label for="i-sigin-password">Password</label>
-            <input type="password" v-model="login.password" placeholder="password" id="i-sigin-password" class="form-control"><br>
-            <button type="submit" class="btn btn-primary">Submit</button>
-            <label style="margin-left:50px">Or</label>
-            <div style="margin-top: 5px;">
-                <label>Sign In with google</label>
-                <div class="g-signin2" data-onsuccess="onSignIn" id="google-signin"></div>                                
-            </div>
-        </form>
-
-        <!-- Data -->
-        <div v-if="isLogin" class="row" id="content">
-            <!-- Side Bar -->
-            <div class="col-sm-3">
-                <ul class="list-group">
-                    <!-- <li class="list-group-item"> Article </li> -->
-                    <li class="list-group-item" v-on:click="showAllArticleById"><i class="fas fa-file-alt"></i> My Article </li>
-                    <li class="list-group-item" v-on:click="showFormCreateArticle"> <i class="fas fa-plus"></i> Create Article </li>
-                </ul>
-            </div>
-            
-            <div v-if="isLogin" class="col-sm-9">
-
-                <!-- Form Create Article -->
-                <form v-on:submit.prevent="formCreateArticle" v-if="userCreateArticle">
-                    <div class="form-create-article">
-                        <label for="i-article-title">Title</label>
-                        <input v-model="article.title" type="text" class="form-control" id="i-article-title">
-                        <small id="emailHelp" class="form-text text-muted">Title is required</small>
-                        
-                    </div>
-                    <div class="form-create-article">
-                        <label for="i-article-body">Content</label>
-                        <editor v-model="article.content" api-key="1d9hzq7843jfpu3bcfhtzccsin7i1j0iz4k6vxg9pl1ridhc" :init="{menubar: false}" ></editor>
-                    </div>
-                    <button class="form-create-article" type="submit" class="btn btn-primary">Submit</button>
-                </form>
-
-                <!-- Article -->
-                <div class="card" v-if="userArticle" v-for="article in articleList">
-                    <div class="card-body">
-                        <h5 class="card-title">{{article.title}}</h5>
-                        <p v-html="article.content" class="card-text"></p>
-                        <i v-on:click="editArticle(article._id)" class="far fa-edit">Edit</i>
-                        <i v-on:click="deleteArticle(article._id)" class="fas fa-trash-alt">Delete</i>
-                    </div>
-                </div>
-
-                
-    
-            </div>
-    
-            <div class="col-sm-9" id="list-article"></div>
-            <div class="col-sm-9" id="detail-article"></div>
-        </div>
-        
-
-        <!-- Footer -->
-        <footer id="sticky-footer" class="py-4 bg-dark text-white-50">
-            <div class="container text-center">
-                <small class="text-muted">Copyright &copy; Mini WordPress 2019</small>
-            </div>
-        </footer>
-    </div>
-
-    
-
-
-
-    
-
-    
-    
-    
-
-
-    <!-- jQuery CDN -->
-    <!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script> -->
-    <!-- Bootsrap -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <!-- Font Awesome -->
-    <script src="https://kit.fontawesome.com/d778bb1fbb.js"></script>
-    <!-- google signin script -->
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <!-- Include the Quill library -->
-    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-    <!-- Vue CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <!-- swal -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
-    <script src="sweetalert2.all.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
-    <!-- Axios -->
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <!-- Tiny Cloud -->
-    <script src="https://cdn.tiny.cloud/1/1d9hzq7843jfpu3bcfhtzccsin7i1j0iz4k6vxg9pl1ridhc/tinymce/5/tinymce.min.js"></script>
-    <script src="./node_modules/@tinymce/tinymce-vue/lib/browser/tinymce-vue.min.js"></script>
-    <!-- Script -->
-    <script src="./js/index.js"></script>
-
+  <div id="app"></div>
+  
+  <!-- Tiny -->
+  <!-- <script src="path/to/tinymce-vue.min.js"></script> -->
+  <!-- Google Signin -->
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <!-- Swal -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+  <!-- Axios CDN -->
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <!-- Vue CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="./js/index.js"></script>
 </body>
 </html>

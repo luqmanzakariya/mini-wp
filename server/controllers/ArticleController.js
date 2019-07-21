@@ -2,12 +2,11 @@ const Article = require('../models/article')
 
 class ArticleController {
     static create (req, res, next){
-        // console.log('ini masuk req user', req.user)
-        // console.log('ini req body', req.body)
         let input = {
             title : req.body.title,
             content : req.body.content,
             created_at : new Date(),
+            fileUrl: req.file.cloudStoragePublicUrl,
             UserId : req.user.id
         }
         Article.create(input)
@@ -22,7 +21,17 @@ class ArticleController {
             UserId : req.user.id
         })
         .then((data)=>{
-            console.log('ini masuk data findAll', data)
+            res.status(200).json(data)
+        })
+        .catch(next)
+    }
+
+    static allUserArticle (req, res, next){
+        Article.find({
+            UserId : {$nin: [`${req.user.id}`] }
+            // UserId : req.user.id
+        })
+        .then((data)=>{
             res.status(200).json(data)
         })
         .catch(next)
@@ -30,8 +39,6 @@ class ArticleController {
 
     static delete (req, res, next){
         console.log('masuk controller deleteTodo')
-        // console.log(req.params.id)
-        // console.log(req.params)
         Article.deleteOne({
             _id : req.params.id
         })
@@ -42,7 +49,7 @@ class ArticleController {
     }
 
     static findOne (req, res, next){
-        Article.find({
+        Article.findOne({
             _id : req.params.id
         })
         .then((data)=>{
@@ -53,11 +60,18 @@ class ArticleController {
     }
 
     static update (req, res, next){
-        console.log('masuk update')
-        Article.updateOne({_id: req.params.id}, {status: req.body.status})
+        let input = {
+            title : req.body.title,
+            content : req.body.content,
+            created_at : new Date(),
+            fileUrl: req.file.cloudStoragePublicUrl,
+            UserId : req.user.id
+        }
+        console.log('ini inputnya', input)
+        Article.updateOne({_id: req.params.id}, input)
         .then((data)=>{
             console.log('berhasil update')
-            res.send(data)
+            res.status(200).json(data)
         })
         .catch(next)
     }

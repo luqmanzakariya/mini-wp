@@ -6,7 +6,6 @@ module.exports = {
         if(req.headers.token) {
             try {
                 let decode = verify(req.headers.token)
-                console.log(decode)
                 req.user = decode
                 next()
             } catch(err) {
