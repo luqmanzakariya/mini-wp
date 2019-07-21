@@ -13,13 +13,15 @@
             </b-card-body>
           </b-col>
         </b-row>
+        <button @click="details(article)" type="button" class="btn btn-primary" style="left: 0px;">Details</button>
       </b-card>
     </div>
   </div>
 </template>
 
 <script>
-const baseUrl = 'http://localhost:3000'
+// const baseUrl = 'http://35.240.221.23'
+const baseUrl = `http://localhost:3000`
 
 export default {
   data (){
@@ -48,6 +50,14 @@ export default {
       })
       .catch((err)=>{
         console.log(err)
+      })
+    },
+    details(article){
+      console.log('masuk details', article)
+      Swal.fire({
+        imageUrl: 'https://placeholder.pics/svg/300x1500',
+        imageHeight: 1500,
+        imageAlt: 'A tall image'
       })
     }
   },

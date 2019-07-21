@@ -30,3 +30,15 @@ app.use(errorHandler)
 app.listen(port, () => {
     console.log(`app listening on port ${port}!`)
 })
+
+//MONGOOSE
+// mongoose.connect('mongodb://localhost:27017/mini-wp', {useNewUrlParser: true}, function(err){
+//     if (err) throw err
+//     else console.log('success connect to database')
+// });
+
+//MONGOOSE
+// mongoose.connect('mongodb://localhost/mini-wp', {useNewUrlParser: true}, function(err){
+//     if (err) throw err
+//     else console.log('success connect to database')
+// });

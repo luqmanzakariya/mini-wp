@@ -25,7 +25,8 @@
 </template>
 
 <script>
-const baseUrl = 'http://localhost:3000'
+// const baseUrl = 'http://35.240.221.23'
+const baseUrl = `http://localhost:3000`
 import Editor from '@tinymce/tinymce-vue'
 
 export default {
@@ -51,7 +52,7 @@ export default {
       console.log('ini form data', formData)
       axios({
         method: 'POST',
-        url : "http://localhost:3000/articles/create", 
+        url : `${baseUrl}/articles/create`, 
         data : formData,
         headers: {
           'token': localStorage.getItem('token'),

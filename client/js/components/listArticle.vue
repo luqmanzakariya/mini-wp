@@ -22,7 +22,8 @@
 </template>
 
 <script>
-const baseUrl = 'http://localhost:3000'
+// const baseUrl = 'http://35.240.221.23'
+const baseUrl = `http://localhost:3000`
 
 export default {
   data (){

@@ -27,7 +27,9 @@
 </template>
 
 <script>
-const baseUrl = 'http://localhost:3000'
+// const baseUrl = 'http://35.240.221.23/'
+const baseUrl = `http://localhost:3000`
+
 import Editor from '@tinymce/tinymce-vue'
 
 export default {
@@ -58,7 +60,7 @@ export default {
     editArticle(){
       axios({
         method: 'get',
-        url : `http://localhost:3000/articles/${this.id}`, 
+        url : `${baseUrl}/articles/${this.id}`, 
         headers: {
           'token': localStorage.getItem('token'),
         },
@@ -94,7 +96,7 @@ export default {
       formData.append('file', this.article.file)
       axios({
         method: 'PATCH',
-        url : `http://localhost:3000/articles/${this.id}`, 
+        url : `${baseUrl}/articles/${this.id}`, 
         data : formData,
         headers: {
           'token': localStorage.getItem('token'),
