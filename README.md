@@ -2,6 +2,14 @@
 ## My App Name
 Mini Wordpress build with Express, Vue and Mongoose
 
+## CLIENT
+
+```
+// for production
+$ parcel index.html
+```
+
+
 ## List of basic routes:
 
 | Route  | HTTP | Headers(s) | Body | Description         |
