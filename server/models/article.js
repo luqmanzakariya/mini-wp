@@ -19,7 +19,7 @@ let ArticleSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "Users"
     }
-})
+}, {timestamps: true})
 
 let Article = mongoose.model('Articles', ArticleSchema)
 
